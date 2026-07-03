@@ -6,7 +6,8 @@ while True:
     print("2 To view student")
     print("3 Update marks of student")
     print("4 To delete student")
-    print("5 To exit")
+    print("5 To rename student")
+    print("6 To exit")
 
     choice = input("Enter the choice: ")
 
@@ -41,6 +42,16 @@ while True:
             print("Student not found.")
 
     elif choice == '5':
+        old_name = input("Enter the current name of the student: ")
+        if old_name in student:
+            new_name = input("Enter the new name for the student: ")
+            student[new_name] = student[old_name]
+            del student[old_name]
+            print("Student renamed successfully.")
+        else:
+            print("Student not found.")
+
+    elif choice == '6':
         print("Exiting...")
         break
 

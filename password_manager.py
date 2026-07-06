@@ -18,13 +18,12 @@ def generate_password():
     return password
 
 while True:
-    print("\n----------Password Manager -----------")
-    print("1 To generate the password")
-    print("2 To view the password")
-    print("3 To save password")
-    print("3 To edit the password")
-    print("4 To Delete the password")
-    print("5 Exit")
+    print("1. Generate Password")
+    print("2. View Passwords")
+    print("3. Save Password")
+    print("4. Edit Password")
+    print("5. Delete Password")
+    print("6. Exit")        
 
     choice = input("Enter your choice: ")
 
@@ -32,13 +31,13 @@ while True:
         pwd = generate_password()
         print("Generated password : ",pwd)
         val = input("Enter Y/y to save the password: ")
-        if val == "Y"or"y":
+        if val == "Y" or val == "y":
             site = input("Enter the site name: ")
 
             passwords[site] = pwd
 
-            with open("password.txt","a") as file:
-                file.wite(f"{site}:{pwd}\n")
+            with open("password.txt","w") as file:
+                file.write(f"{site}:{pwd}\n")
 
                 print("Saved")  
         else :
@@ -49,7 +48,7 @@ while True:
         if not passwords:
             print("NO Data is available")
         else:
-            for site, pwd in passwords:
+            for site, pwd in passwords.items():
                 print(site ,":",pwd)
 
     elif choice =="3":
@@ -58,8 +57,8 @@ while True:
 
         passwords[site] = pwd
 
-        with open("password.txt","a") as file:
-            file.wite(f"{site}:{pwd}\n")
+        with open("password.txt","w") as file:
+            file.write(f"{site}:{pwd}\n")
 
             print("Saved")
         
@@ -70,9 +69,28 @@ while True:
         if site in passwords:
             pwd = input("Enter the new password: ")
             passwords[site] = pwd
+
+            with open("password.txt", "w") as file:
+                for s, p in passwords.items():
+                    file.write(f"{s}:{p}\n")
+
         else:
             print("No data is found")
+
+    elif choice == "5":
+        site = input("Enter site name: ")
+
+        if site in passwords:
+            del passwords[site]
+
+            with open("password.txt","w") as file:
+                for s,p in passwords.items():
+                    file.write(f"{s}:{p}\n")
+            print("password deleted")
+
+        else:
+            print("Website is not found")
  
-    elif choice =="5":
+    elif choice =="6":
         print("OK bye")
         break
